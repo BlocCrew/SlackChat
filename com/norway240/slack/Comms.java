@@ -30,7 +30,6 @@ public class Comms {
 	
 	@SuppressWarnings("unchecked")
 	public void send(String name, String msg) throws IOException{
-
 		URL object=new URL(WEBHOOK);
 		HttpURLConnection con = (HttpURLConnection) object.openConnection();
 		con.setDoOutput(true);

@@ -102,12 +102,20 @@ public class Slack extends JavaPlugin implements Listener {
 	        }
 	    }).start();
 	}
-	
+	//Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), mv modify 1);
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("slackchat")){
 			loadYamls();
 			sender.sendMessage("[SlackChat] Configuration reloaded");
+			return true;
+		}else if(cmd.getName().equalsIgnoreCase("staff")){
+			sender.sendMessage("Staff not online? No need to fear!");
+			sender.sendMessage("Say a staff member's name to contact them even if they are offline!");
+			sender.sendMessage("For Example: \"@norway240\" (may differ from in game name)");
+			sender.sendMessage("Here are the staff members of which you can get their attention:");
+			sender.sendMessage("@norway240");
+			sender.sendMessage("@mailmanq");
 			return true;
 		}
 		return false;

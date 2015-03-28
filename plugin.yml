@@ -11,8 +11,16 @@ commands:
       usage: /slackchat
       permission: slackchat
       permission-message: You don't have permission
+   staff:
+      description: Displays all mentionable staff via slack
+      usage: /staff
+      permission: staff
+      permission-message: Stupid server admin configured this wrong.
 
 permissions:
     slackchat:
         description: Allows acess to change settings
         default: op
+    staff:
+        description: Display staff and such.
+        default: true
