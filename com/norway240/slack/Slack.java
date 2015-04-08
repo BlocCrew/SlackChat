@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,6 +26,7 @@ public class Slack extends JavaPlugin implements Listener {
 	public static Comms comm;
 	File configFile;
     FileConfiguration config;
+    List<String> notify;
 
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(this, this);
@@ -80,6 +83,8 @@ public class Slack extends JavaPlugin implements Listener {
 			    String v = config.getString("verification");
 			    int p = config.getInt("port");
 			    
+			    notify = config.getStringList("notify");
+			    
 				comm = new Comms(w, v, p);
 		    }
 	    } catch (Exception e) {
@@ -96,10 +101,14 @@ public class Slack extends JavaPlugin implements Listener {
 	    new Thread(new Runnable() {
 	        public void run(){
 			    try{
-					if(msg.contains("@norway240")){
-						comm.sendDM("@norway240", name, msg);
-					}else{
-						comm.send(name, msg);
+					comm.send(name, msg);
+					
+					Iterator<String> iterator = notify.iterator();
+					while(iterator.hasNext()){
+						String n = "@"+iterator.next();
+						if(msg.contains(n)){
+							comm.sendDM(n, name, msg);
+						}
 					}
 				}catch(IOException e){
 					e.printStackTrace();

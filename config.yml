@@ -1,3 +1,6 @@
 webhook: CONFIGURETHIS
 verification: CONFIGURETHIS
 port: 8465
+notify:
+  - norway240
+  - mailmanq
