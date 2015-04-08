@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -95,7 +96,11 @@ public class Slack extends JavaPlugin implements Listener {
 	    new Thread(new Runnable() {
 	        public void run(){
 			    try{
-					comm.send(name, msg);
+					if(msg.contains("@norway240")){
+						comm.sendDM("@norway240", name, msg);
+					}else{
+						comm.send(name, msg);
+					}
 				}catch(IOException e){
 					e.printStackTrace();
 				}
@@ -110,10 +115,12 @@ public class Slack extends JavaPlugin implements Listener {
 			sender.sendMessage("[SlackChat] Configuration reloaded");
 			return true;
 		}else if(cmd.getName().equalsIgnoreCase("staff")){
-			sender.sendMessage("Staff not online? No need to fear!");
-			sender.sendMessage("Say a staff member's name to contact them even if they are offline!");
-			sender.sendMessage("For Example: \"@norway240\" (may differ from in game name)");
-			sender.sendMessage("Here are the staff members of which you can get their attention:");
+			sender.sendMessage("");
+			sender.sendMessage(ChatColor.RED+""+ChatColor.BOLD+""+ChatColor.UNDERLINE+"Staff not online? No need to fear!");
+			sender.sendMessage("");
+			sender.sendMessage("Say a staff member's name in chat to get their attention even if they are offline!");
+			sender.sendMessage("For Example just say: \"@norway240 I need help!\"");
+			sender.sendMessage(ChatColor.AQUA+"List of staff members of which you can get their attention:");
 			sender.sendMessage("@norway240");
 			sender.sendMessage("@mailmanq");
 			return true;

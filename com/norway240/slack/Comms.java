@@ -42,6 +42,41 @@ public class Comms {
 		jobj.put("username", name);
 		jobj.put("icon_url", "http://signaturecraft.us/avatars/5/face/"+name+".png");
 		jobj.put("text", msg);
+		jobj.put("parse", "full");
+
+		OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
+		wr.write(jobj.toString());
+		wr.flush();
+		
+		//display what returns the POST request
+		StringBuilder sb = new StringBuilder();  
+		int HttpResult =con.getResponseCode(); 
+		if(HttpResult ==HttpURLConnection.HTTP_OK){
+		    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));  
+		    String line = null;  
+		    while ((line = br.readLine()) != null) {  
+		    sb.append(line + "\n");  
+		    }  
+		    br.close();  
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void sendDM(String to, String name, String msg) throws IOException{
+		URL object=new URL(WEBHOOK);
+		HttpURLConnection con = (HttpURLConnection) object.openConnection();
+		con.setDoOutput(true);
+		con.setDoInput(true);
+		con.setRequestProperty("Content-Type", "application/json");
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestMethod("POST");
+		
+		JSONObject jobj = new JSONObject();
+		jobj.put("channel", to);
+		jobj.put("username", name);
+		jobj.put("icon_url", "http://signaturecraft.us/avatars/5/face/"+name+".png");
+		jobj.put("text", msg);
+		jobj.put("parse", "full");
 
 		OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
 		wr.write(jobj.toString());
